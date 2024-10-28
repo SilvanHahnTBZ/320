@@ -5,7 +5,9 @@ import finance.transaction.Income;
 import finance.transaction.Expense;
 import finance.exceptions.InvalidTransactionException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FinanceManager {
     private static FinanceManager instance;
@@ -50,9 +52,32 @@ public class FinanceManager {
         return totalBalance;
     }
 
-    // Beispielausgabe des Saldos
+    // Methode zur Ausgabe des aktuellen Gesamtsaldos
     public void printBalance() {
         System.out.println("Aktueller Saldo: " + calculateTotalBalance());
+    }
+
+    // Methode zur Berechnung des Saldos pro Kategorie
+    public Map<String, Double> calculateBalanceByCategory() {
+        Map<String, Double> categoryBalances = new HashMap<>();
+
+        for (Transaction transaction : transactions) {
+            String category = transaction.getCategory();
+            double amount = transaction instanceof Income ? transaction.getAmount() : -transaction.getAmount();
+
+            categoryBalances.put(category, categoryBalances.getOrDefault(category, 0.0) + amount);
+        }
+
+        return categoryBalances;
+    }
+
+    // Methode zur Ausgabe des Saldos pro Kategorie
+    public void printBalanceByCategory() {
+        Map<String, Double> categoryBalances = calculateBalanceByCategory();
+        System.out.println("Saldo nach Kategorie:");
+        for (Map.Entry<String, Double> entry : categoryBalances.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 
     // Beispielhafte Verwendung der Klasse im main-Programm
@@ -68,7 +93,10 @@ public class FinanceManager {
             System.out.println("Fehler: " + e.getMessage());
         }
 
-        // Saldo anzeigen
+        // Gesamt-Saldo anzeigen
         manager.printBalance();
+
+        // Saldos nach Kategorie anzeigen
+        manager.printBalanceByCategory();
     }
 }
