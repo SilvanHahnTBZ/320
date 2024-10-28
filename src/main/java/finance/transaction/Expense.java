@@ -1,12 +1,17 @@
 package finance.transaction;
 
+import finance.exceptions.InvalidTransactionException;
+
 public class Expense implements Transaction {
     private double amount;
     private String category;
     private String date;
     private String description;
 
-    public Expense(double amount, String category, String date, String description) {
+    public Expense(double amount, String category, String date, String description) throws InvalidTransactionException {
+        if (amount <= 0) {
+            throw new InvalidTransactionException("Ausgabenbetrag muss positiv sein.");
+        }
         this.amount = amount;
         this.category = category;
         this.date = date;
