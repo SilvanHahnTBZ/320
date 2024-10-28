@@ -1,8 +1,8 @@
 package finance.category;
 
 public class Category {
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 
     public Category(String name, String description) {
         this.name = name;

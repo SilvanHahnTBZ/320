@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class FinanceManager {
     private static FinanceManager instance;
-    private List<Transaction> transactions;
+    private final List<Transaction> transactions;
 
     // Private Konstruktor für Singleton Pattern
     private FinanceManager() {

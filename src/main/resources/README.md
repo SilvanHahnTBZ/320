@@ -7,7 +7,7 @@ Dieses Projekt ist ein einfaches Finanzverwaltungssystem, das es dem Benutzer er
 Das Projekt ist modular aufgebaut und verwendet das Singleton Pattern für die zentrale `FinanceManager` Klasse und das Factory Pattern für die Erstellung von Transaktionsobjekten.
 
 ### Klassendiagramm
-![Klassendiagramm](./class_diagram.png)
+![Klassendiagramm](./src/main/resources/Sequenz-Diagramm-Einnahme-hinzufügen.png)
 
 ### Klassenübersicht
 - **FinanceManager**: Zentrale Klasse, die alle Transaktionen verwaltet, den Gesamtsaldo berechnet und Berichte anzeigt.

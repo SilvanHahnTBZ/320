@@ -3,10 +3,10 @@ package finance.transaction;
 import finance.exceptions.InvalidTransactionException;
 
 public class Expense implements Transaction {
-    private double amount;
-    private String category;
-    private String date;
-    private String description;
+    private final double amount;
+    private final String category;
+    private final String date;
+    private final String description;
 
     public Expense(double amount, String category, String date, String description) throws InvalidTransactionException {
         if (amount <= 0) {
