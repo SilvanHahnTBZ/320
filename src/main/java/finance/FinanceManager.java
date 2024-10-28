@@ -1,3 +1,5 @@
+package finance;
+
 public class FinanceManager {
     private static FinanceManager instance;
 
