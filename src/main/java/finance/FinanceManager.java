@@ -4,10 +4,12 @@ import finance.transaction.Transaction;
 import finance.transaction.Income;
 import finance.transaction.Expense;
 import finance.exceptions.InvalidTransactionException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class FinanceManager {
     private static FinanceManager instance;
@@ -80,23 +82,76 @@ public class FinanceManager {
         }
     }
 
-    // Beispielhafte Verwendung der Klasse im main-Programm
-    public static void main(String[] args) {
-        FinanceManager manager = FinanceManager.getInstance();
+    // Methode zum Starten der Benutzeroberfläche
+    public void startCLI() {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
 
+        while (!exit) {
+            System.out.println("\nFinanzverwaltungssystem");
+            System.out.println("1. Einnahme hinzufügen");
+            System.out.println("2. Ausgabe hinzufügen");
+            System.out.println("3. Gesamtsaldo anzeigen");
+            System.out.println("4. Saldos nach Kategorie anzeigen");
+            System.out.println("5. Beenden");
+            System.out.print("Wähle eine Option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Nach Zeilenumbruch lesen
+
+            switch (choice) {
+                case 1 -> addIncome(scanner);
+                case 2 -> addExpense(scanner);
+                case 3 -> printBalance();
+                case 4 -> printBalanceByCategory();
+                case 5 -> exit = true;
+                default -> System.out.println("Ungültige Option. Bitte versuche es erneut.");
+            }
+        }
+        scanner.close();
+    }
+
+    // Methode zum Hinzufügen einer Einnahme
+    private void addIncome(Scanner scanner) {
         try {
-            // Beispielhafte Transaktionen
-            manager.addTransaction(new Income(5000, "Gehalt", "2023-10-01", "Monatliches Gehalt"));
-            manager.addTransaction(new Expense(1500, "Miete", "2023-10-02", "Monatliche Miete"));
-            manager.addTransaction(new Expense(300, "Lebensmittel", "2023-10-03", "Wocheneinkauf"));
+            System.out.print("Betrag: ");
+            double amount = scanner.nextDouble();
+            scanner.nextLine();  // Zeilenumbruch einlesen
+            System.out.print("Kategorie: ");
+            String category = scanner.nextLine();
+            System.out.print("Datum (yyyy-mm-dd): ");
+            String date = scanner.nextLine();
+            System.out.print("Beschreibung: ");
+            String description = scanner.nextLine();
+
+            addTransaction(new Income(amount, category, date, description));
         } catch (InvalidTransactionException e) {
             System.out.println("Fehler: " + e.getMessage());
         }
+    }
 
-        // Gesamt-Saldo anzeigen
-        manager.printBalance();
+    // Methode zum Hinzufügen einer Ausgabe
+    private void addExpense(Scanner scanner) {
+        try {
+            System.out.print("Betrag: ");
+            double amount = scanner.nextDouble();
+            scanner.nextLine();  // Zeilenumbruch einlesen
+            System.out.print("Kategorie: ");
+            String category = scanner.nextLine();
+            System.out.print("Datum (yyyy-mm-dd): ");
+            String date = scanner.nextLine();
+            System.out.print("Beschreibung: ");
+            String description = scanner.nextLine();
 
-        // Saldos nach Kategorie anzeigen
-        manager.printBalanceByCategory();
+            addTransaction(new Expense(amount, category, date, description));
+        } catch (InvalidTransactionException e) {
+            System.out.println("Fehler: " + e.getMessage());
+        }
+    }
+
+    // Hauptprogramm zur Ausführung der CLI
+    public static void main(String[] args) {
+        FinanceManager manager = FinanceManager.getInstance();
+        manager.startCLI();
     }
 }
