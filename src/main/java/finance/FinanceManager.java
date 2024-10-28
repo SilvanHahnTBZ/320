@@ -1,6 +1,7 @@
 package finance;
 
 import finance.transaction.Transaction;
+import finance.transaction.TransactionFactory;
 import finance.transaction.Income;
 import finance.transaction.Expense;
 import finance.exceptions.InvalidTransactionException;
@@ -111,7 +112,7 @@ public class FinanceManager {
         scanner.close();
     }
 
-    // Methode zum Hinzufügen einer Einnahme
+    // Methode zum Hinzufügen einer Einnahme über die Factory
     private void addIncome(Scanner scanner) {
         try {
             System.out.print("Betrag: ");
@@ -124,13 +125,14 @@ public class FinanceManager {
             System.out.print("Beschreibung: ");
             String description = scanner.nextLine();
 
-            addTransaction(new Income(amount, category, date, description));
+            Transaction income = TransactionFactory.createTransaction("income", amount, category, date, description);
+            addTransaction(income);
         } catch (InvalidTransactionException e) {
             System.out.println("Fehler: " + e.getMessage());
         }
     }
 
-    // Methode zum Hinzufügen einer Ausgabe
+    // Methode zum Hinzufügen einer Ausgabe über die Factory
     private void addExpense(Scanner scanner) {
         try {
             System.out.print("Betrag: ");
@@ -143,7 +145,8 @@ public class FinanceManager {
             System.out.print("Beschreibung: ");
             String description = scanner.nextLine();
 
-            addTransaction(new Expense(amount, category, date, description));
+            Transaction expense = TransactionFactory.createTransaction("expense", amount, category, date, description);
+            addTransaction(expense);
         } catch (InvalidTransactionException e) {
             System.out.println("Fehler: " + e.getMessage());
         }
