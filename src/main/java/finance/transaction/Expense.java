@@ -1,17 +1,21 @@
 package finance.transaction;
 
+import finance.category.Category;
 import finance.exceptions.InvalidTransactionException;
+import finance.exceptions.InvalidDateException;
+import finance.utils.Validator;
 
 public class Expense implements Transaction {
     private final double amount;
-    private final String category;
+    private final Category category;
     private final String date;
     private final String description;
 
-    public Expense(double amount, String category, String date, String description) throws InvalidTransactionException {
-        if (amount <= 0) {
-            throw new InvalidTransactionException("Ausgabenbetrag muss positiv sein.");
-        }
+    public Expense(double amount, Category category, String date, String description) throws InvalidTransactionException, InvalidDateException {
+        Validator.validateAmount(amount);
+        Validator.validateDate(date);
+        Validator.validateDescription(description);
+
         this.amount = amount;
         this.category = category;
         this.date = date;
@@ -24,7 +28,7 @@ public class Expense implements Transaction {
     }
 
     @Override
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
@@ -36,5 +40,15 @@ public class Expense implements Transaction {
     @Override
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "amount=" + amount +
+                ", category=" + category +
+                ", date='" + date + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
