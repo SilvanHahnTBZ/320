@@ -3,6 +3,40 @@
 ## Projektübersicht
 Das Finanzverwaltungssystem ist eine CLI-basierte Anwendung zur Verwaltung persönlicher Finanzen. Es ermöglicht Benutzern, Einnahmen und Ausgaben nach Kategorien zu verfolgen, den Gesamtsaldo zu berechnen und die Finanzen anhand von Kategorien zu analysieren. Die Anwendung basiert auf der Java Virtual Machine (JVM) und verwendet eine modulare Architektur, um zukünftige Erweiterungen zu erleichtern.
 
+## Projektstruktur
+```
+m320_Project
+├── .idea
+├── Finanzverwaltungssystem
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── finance
+│   │   │   │       ├── category
+│   │   │   │       │   └── Category.java
+│   │   │   │       ├── exceptions
+│   │   │   │       │   ├── InvalidDateException.java
+│   │   │   │       │   └── InvalidTransactionException.java
+│   │   │   │       ├── transaction
+│   │   │   │       │   ├── Expense.java
+│   │   │   │       │   ├── Income.java
+│   │   │   │       │   ├── Transaction.java
+│   │   │   │       │   └── TransactionFactory.java
+│   │   │   │       ├── utils
+│   │   │   │       │   └── Validator.java
+│   │   │   │       └── FinanceManager.java
+│   │   │   └── resources
+│   │   │       ├── src
+│   │   │       │   └── main
+│   │   │       │       └── resources
+│   │   │       └── README.md
+│   │   │       └── Sequenz-Diagramm-Einnahme-hinzufügen.png
+│   ├── test
+│   │   ├── java
+│   │   │   └── finance
+│   │   │       └── FinanceManagerTest.java
+│   └── README.md
+```
 ## Architektur und Design
 Das Projekt folgt einem modularen Aufbau mit Verwendung des Singleton-Patterns für die zentrale `FinanceManager`-Klasse und des Factory-Patterns zur Erstellung von Transaktionsobjekten. Zu den Hauptklassen gehören:
 
