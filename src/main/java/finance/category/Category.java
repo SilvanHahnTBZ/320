@@ -1,20 +1,10 @@
 package finance.category;
 
-public class Category {
-    private final String name;
-    private final String description;
-
-    public Category(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
+public record Category(String name, String description) {
+    public Category {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Category name cannot be null or empty.");
+        }
     }
 
     @Override
