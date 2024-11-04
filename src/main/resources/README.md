@@ -1,27 +1,35 @@
 # Finanzverwaltungssystem
 
 ## Projektübersicht
-Dieses Projekt ist ein einfaches Finanzverwaltungssystem, das es dem Benutzer ermöglicht, Einnahmen und Ausgaben zu verwalten, den Gesamtsaldo zu berechnen und die Finanzen nach Kategorien zu analysieren. Die Anwendung basiert auf der Java Virtual Machine (JVM) und verwendet ein Kommandozeilen-Interface (CLI).
+Das Finanzverwaltungssystem ist eine CLI-basierte Anwendung zur Verwaltung persönlicher Finanzen. Es ermöglicht Benutzern, Einnahmen und Ausgaben nach Kategorien zu verfolgen, den Gesamtsaldo zu berechnen und die Finanzen anhand von Kategorien zu analysieren. Die Anwendung basiert auf der Java Virtual Machine (JVM) und verwendet eine modulare Architektur, um zukünftige Erweiterungen zu erleichtern.
 
 ## Architektur und Design
-Das Projekt ist modular aufgebaut und verwendet das Singleton Pattern für die zentrale `FinanceManager` Klasse und das Factory Pattern für die Erstellung von Transaktionsobjekten.
+Das Projekt folgt einem modularen Aufbau mit Verwendung des Singleton-Patterns für die zentrale `FinanceManager`-Klasse und des Factory-Patterns zur Erstellung von Transaktionsobjekten. Zu den Hauptklassen gehören:
+
+- **FinanceManager**: Zentrale Klasse zur Verwaltung aller Transaktionen, Berechnung des Gesamtsaldos und Anzeige von Berichten.
+- **Transaction (Interface)**: Definiert grundlegende Methoden für Transaktionen.
+- **Income** und **Expense**: Spezifische Klassen für Einnahmen und Ausgaben, die das `Transaction`-Interface implementieren.
+- **TransactionFactory**: Eine Factory zur Erstellung von `Income` oder `Expense`-Objekten basierend auf dem Transaktionstyp.
+- **Category**: Klasse zur Definition von Kategorien mit `name` und `description`, einschließlich Validierung für leere oder ungültige Namen.
+- **Validator**: Utility-Klasse zur Validierung von Transaktionsdaten, einschließlich `amount`, `date` und `description`.
+- **InvalidTransactionException** und **InvalidDateException**: Benutzerdefinierte Exceptions für Fehler bei Transaktionen und ungültige Datumsformate.
 
 ### Klassendiagramm
-![Klassendiagramm](./src/main/resources/Sequenz-Diagramm-Einnahme-hinzufügen.png)
+![Klassendiagramm](..\src\main\resources\Sequenz-Diagramm-Einnahme-hinzufügen.png)
 
-### Klassenübersicht
-- **FinanceManager**: Zentrale Klasse, die alle Transaktionen verwaltet, den Gesamtsaldo berechnet und Berichte anzeigt.
-- **Transaction (Interface)**: Definiert grundlegende Methoden für Transaktionen.
-- **Income und Expense**: Spezifische Klassen für Einnahmen und Ausgaben, die `Transaction` implementieren.
-- **TransactionFactory**: Eine Factory, die `Income` oder `Expense` Objekte basierend auf dem Transaktionstyp erstellt.
-- **InvalidTransactionException**: Benutzerdefinierte Exception, die bei ungültigen Transaktionen ausgelöst wird.
-
-### Design Pattern
-Das Factory Pattern wurde für die Erstellung der Transaktionen verwendet. Der Grund dafür ist, dass das Projekt in Zukunft leicht um weitere Transaktionstypen erweitert werden kann, ohne den Hauptcode in der `FinanceManager` Klasse anpassen zu müssen.
+## Design Patterns
+- **Factory Pattern**: Ermöglicht die einfache Erweiterbarkeit um neue Transaktionstypen, ohne Änderungen am Hauptcode der `FinanceManager`-Klasse vorzunehmen.
+- **Singleton Pattern**: Die `FinanceManager`-Klasse wird als Singleton implementiert, um eine zentrale Verwaltung aller Transaktionen sicherzustellen.
 
 ## Nutzung
-1. Starte das Programm über die `main` Methode in der `FinanceManager` Klasse.
-2. Folge den Anweisungen im CLI-Menü:
-    - Einnahmen und Ausgaben hinzufügen
-    - Gesamtsaldo anzeigen
-    - Saldos nach Kategorie anzeigen
+
+1. **Starten der Anwendung**:
+   - Führen Sie die `main`-Methode der `FinanceManager`-Klasse aus.
+
+2. **Bedienung über das CLI-Menü**:
+   - **1. Einnahme hinzufügen**: Fügt eine neue Einnahme hinzu.
+   - **2. Ausgabe hinzufügen**: Fügt eine neue Ausgabe hinzu.
+   - **3. Gesamtsaldo anzeigen**: Zeigt den aktuellen Gesamtsaldo basierend auf allen Transaktionen an.
+   - **4. Saldos nach Kategorie anzeigen**: Zeigt die Salden gruppiert nach Kategorien an.
+   - **5. Beenden**: Beendet die Anwendung.
+
