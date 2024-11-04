@@ -11,4 +11,8 @@ public record Category(String name, String description) {
     public String toString() {
         return "Category{name='" + name + "', description='" + description + "'}";
     }
+
+    public String getName() {
+        return name;
+    }
 }
